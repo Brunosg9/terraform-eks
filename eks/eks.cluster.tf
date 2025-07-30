@@ -13,7 +13,7 @@ resource "aws_eks_cluster" "this" {
     enabled_cluster_log_types   = var.eks_cluster.enabled_cluster_log_types
 
     access_config {
-        authentication_mode     = var.eks_cluster.access_config.authentication_mode
+        authentication_mode     = var.eks_cluster.access_config_athentication_mode
     }
     vpc_config {
         subnet_ids              = data.terraform_remote_state.vpc.outputs.private_subnet_ids
