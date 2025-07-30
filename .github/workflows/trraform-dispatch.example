@@ -1,0 +1,50 @@
+# .github/workflows/terraform-dispatch.yml
+name: Terraform Destroy Manual
+
+on:
+  workflow_dispatch:
+    inputs:
+      destroy:
+        description: "Digite 'SIM' para confirmar a destruição dos recursos"
+        required: true
+        default: "NÃO"
+
+env:
+  TF_VERSION: "1.12.2"
+
+jobs:
+  destroy:
+    name: Terraform Destroy
+    runs-on: ubuntu-latest
+
+    # OIDC para assumir role AWS
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Verificar Confirmação
+        if: github.event.inputs.destroy != 'SIM'
+        run: |
+          echo "Você não confirmou com 'SIM'. Cancelando o destroy."
+          exit 1
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.ASSUME_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Terraform Init
+        run: terraform -chdir=./vpc init
+
+      - name: Terraform Destroy
+        run: terraform -chdir=./vpc destroy -auto-approve

@@ -1,0 +1,47 @@
+# .github/workflows/deploy.yml
+name: Terraform Deploy
+
+on:
+  push:
+    branches: [main]
+
+env:
+  TF_VERSION: "1.12.2"
+  TF_VAR_assume_role_arn: ${{ secrets.ASSUME_ROLE_ARN }}
+
+jobs:
+  terraform:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write       # 👈 necessário para OIDC funcionar
+      contents: read
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.ASSUME_ROLE_ARN }}  # 👈 role com trust para GitHub OIDC
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Terraform Init
+        run: terraform -chdir=./vpc init
+
+      - name: Terraform Plan
+        run: terraform -chdir=./vpc plan
+
+      - name: Terraform Apply
+        run: terraform -chdir=./vpc apply -auto-approve
+
+
+
+# testes
