@@ -9,7 +9,7 @@ data "terraform_remote_state" "vpc" {
 
 resource "aws_eks_cluster" "this" {
     name                        = "${var.eks_cluster.name}-${var.environment}"
-    role_arn                    = aws_iam_role.eks_node_group_role.arn
+    role_arn                    = aws_iam_role.eks_cluster_role.arn
     enabled_cluster_log_types   = var.eks_cluster.enabled_cluster_log_types
 
     access_config {
@@ -19,6 +19,6 @@ resource "aws_eks_cluster" "this" {
         subnet_ids              = data.terraform_remote_state.vpc.outputs.private_subnet_ids
     }
     depends_on = [
-        aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy,
+        aws_iam_role_policy_attachment.eks_cluster_policies,
     ]
 }

@@ -7,7 +7,7 @@ output "eks_cluster_arn" {
 }
 
 output "eks_cluster_role" {
-  value       = aws_iam_role.eks_node_group_role.arn
+  value       = aws_iam_role.eks_cluster_role.arn
 }
 
 output "node_group_arn" {
