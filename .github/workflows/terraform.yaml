@@ -34,13 +34,13 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Terraform Init
-        run: terraform -chdir=./vpc init
+        run: terraform -chdir=./eks init
 
       - name: Terraform Plan
-        run: terraform -chdir=./vpc plan
+        run: terraform -chdir=./eks plan
 
       - name: Terraform Apply
-        run: terraform -chdir=./vpc apply -auto-approve
+        run: terraform -chdir=./eks apply -auto-approve
 
 
 

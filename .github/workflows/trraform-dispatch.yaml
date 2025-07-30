@@ -44,7 +44,7 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Terraform Init
-        run: terraform -chdir=./vpc init
+        run: terraform -chdir=./eks init
 
       - name: Terraform Destroy
-        run: terraform -chdir=./vpc destroy -auto-approve
+        run: terraform -chdir=./eks destroy -auto-approve
