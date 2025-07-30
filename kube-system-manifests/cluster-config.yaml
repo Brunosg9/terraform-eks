@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-info
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: cluster-info
+    app.kubernetes.io/managed-by: argocd
+data:
+  cluster.name: "eks-cluster-prd"
+  cluster.region: "us-east-1"
+  cluster.version: "1.28"
+  environment: "production"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: monitoring-config
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: monitoring-config
+    app.kubernetes.io/managed-by: argocd
+data:
+  enable_metrics: "true"
+  metrics_interval: "30s"
+  log_level: "info"

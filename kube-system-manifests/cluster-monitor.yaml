@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cluster-monitor
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: cluster-monitor
+    app.kubernetes.io/managed-by: argocd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cluster-monitor
+  template:
+    metadata:
+      labels:
+        app: cluster-monitor
+        app.kubernetes.io/name: cluster-monitor
+    spec:
+      serviceAccountName: cluster-operator
+      containers:
+      - name: monitor
+        image: busybox:1.35
+        command:
+        - /bin/sh
+        - -c
+        - |
+          while true; do
+            echo "$(date): Monitoring cluster health"
+            echo "Nodes: $(nslookup kubernetes.default.svc.cluster.local | grep -c Address || echo 'N/A')"
+            sleep 30
+          done
+        resources:
+          limits:
+            memory: 128Mi
+            cpu: 100m
+          requests:
+            memory: 64Mi
+            cpu: 50m
+        env:
+        - name: CLUSTER_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: cluster-info
+              key: cluster.name
+        - name: CLUSTER_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: cluster-info
+              key: cluster.region
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-monitor
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: cluster-monitor
+    app.kubernetes.io/managed-by: argocd
+spec:
+  selector:
+    app: cluster-monitor
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+  type: ClusterIP

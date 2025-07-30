@@ -9,7 +9,7 @@ data "aws_s3_bucket" "terraform_state_bucket" {
 
 # Tabela DynamoDB para locking do Terraform state
 resource "aws_dynamodb_table" "terraform_locks" {
-  name         = "terraform-lock-table"
+  name         = "terraform-lock-table-eks"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
 
