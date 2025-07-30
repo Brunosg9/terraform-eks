@@ -24,7 +24,7 @@ variable "eks_cluster" {
         name                             = "eks-cluster"
         role_name                        = "eks-cluster-role"
         access_config_athentication_mode = "API_AND_CONFIG_MAP"
-        private_subnet_ids               = ["<change-here>", "<change-here>"]
+        private_subnet_ids               = ["subnet-003a590f001de97b6", "subnet-081a59e2556717f8d"]
         enabled_cluster_log_types        = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
         node_group = {
             role_name                     = "eks-node-group-role"

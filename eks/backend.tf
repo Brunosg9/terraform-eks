@@ -27,7 +27,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
 terraform {
   backend "s3" {
     bucket         = "github-s3-terraform-tfstate2"
-    key            = "eks-terraform/${var.environment}/terraform.tfstate"
+    key            = "eks-terraform/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
     use_lockfile   = true
