@@ -13,29 +13,29 @@ Este projeto demonstra a implementação completa de um cluster EKS na AWS com A
 
 ## 📸 Demonstração Visual
 
-### 1. Cluster EKS Console AWS
-![EKS Cluster](./images/eks.cluster.jpg)
-*Console AWS mostrando o cluster EKS eks-cluster-prd ativo com configurações de rede e logging*
-
-### 2. VPC Flow - Arquitetura de Rede
+### 1. VPC Flow - Arquitetura de Rede
 ![VPC Flow](./images/vpc-flow.jpg)
 *Diagrama da arquitetura de rede VPC com subnets públicas e privadas para o cluster EKS*
 
-### 3. ArgoCD - Dashboard Principal
-![ArgoCD Dashboard](./images/argocd-dashboard.jpg)
-*Dashboard do ArgoCD mostrando aplicações kube-system sincronizadas e saudáveis*
+### 2. Cluster EKS Console AWS
+![EKS Cluster](./images/eks.cluster.jpg)
+*Console AWS mostrando o cluster EKS eks-cluster-prd ativo com configurações de rede e logging*
 
-### 4. ArgoCD - Detalhes da Aplicação
-![ArgoCD App Details](./images/argocd-app-details.jpg)
-*Visualização detalhada da aplicação kube-system com todos os recursos deployados*
-
-### 6. AWS Load Balancer Controller
+### 3. AWS Load Balancer Controller
 ![K8s Resources](./images/k8s-resources.jpg)
 *Árvore de recursos Kubernetes gerenciados pelo ArgoCD incluindo ConfigMaps, Secrets e ServiceAccounts*
 
-### 6. ArgoCD - Recursos Kubernetes
+### 4. EKS Cluster - Recursos Kubernetes
 ![ALB Controller](./images/alb-controller.jpg)
 *Pods do AWS Load Balancer Controller em execução no namespace kube-system*
+
+### 5. ArgoCD - Dashboard Principal
+![ArgoCD Dashboard](./images/argocd-dashboard.jpg)
+*Dashboard do ArgoCD mostrando aplicações kube-system sincronizadas e saudáveis*
+
+### 6. ArgoCD - Detalhes da Aplicação de backend com logs
+![ArgoCD App Details](./images/argocd-app-details.jpg)
+*Visualização detalhada da aplicação kube-system com todos os recursos deployados*
 
 ### 7. Aplicação Web Funcionando
 ![Web App Running](./images/web-app.jpg)
