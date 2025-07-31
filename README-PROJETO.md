@@ -33,13 +33,13 @@ Este projeto demonstra a implementação completa de um cluster EKS na AWS com A
 ![ArgoCD Dashboard](./images/argocd-dashboard.jpg)
 *Dashboard do ArgoCD mostrando aplicações kube-system sincronizadas e saudáveis*
 
-### 6. ArgoCD - Detalhes da Aplicação de backend com logs
-![ArgoCD App Details](./images/argocd-app-details.jpg)
-*Visualização detalhada da aplicação kube-system com todos os recursos deployados*
-
-### 7. Aplicação Web Funcionando
+### 6. Aplicação Web Funcionando
 ![Web App Running](./images/web-app.jpg)
 *Aplicação web acessível através do Load Balancer, demonstrando o pipeline completo funcionando*
+
+### 7. ArgoCD - Detalhes da Aplicação de backend com logs
+![ArgoCD App Details](./images/argocd-app-details.jpg)
+*Visualização detalhada da aplicação kube-system com todos os recursos deployados*
 
 ## 🚀 Como Executar
 
