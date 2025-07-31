@@ -13,37 +13,45 @@ Este projeto demonstra a implementação completa de um cluster EKS na AWS com A
 
 ## 📸 Demonstração Visual
 
-### 1. Cluster EKS Criado
-![EKS Cluster](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.52.25_2f70b8ae.jpg)
-*Cluster EKS rodando com nodes ativos*
+### 1. Cluster EKS Console AWS
+<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.52.25_2f70b8ae.jpg" alt="EKS Cluster" width="800"/>
 
-### 2. ArgoCD Interface
-![ArgoCD Dashboard](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.52.52_df96245a.jpg)
-*Interface web do ArgoCD mostrando aplicações sincronizadas*
+*Console AWS mostrando o cluster EKS eks-cluster-prd ativo com configurações de rede e logging*
 
-### 3. Aplicações Deployadas
-![Aplicações ArgoCD](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.53.08_b3a26f80.jpg)
-*Lista de aplicações gerenciadas pelo ArgoCD*
+### 2. ArgoCD - Login Interface
+<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.52.52_df96245a.jpg" alt="ArgoCD Login" width="800"/>
 
-### 4. Status das Aplicações
-![Status Aplicações](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.53.25_a6d859b2.jpg)
-*Detalhes do status de sincronização das aplicações*
+*Tela de login do ArgoCD acessível via port-forward, pronto para autenticação*
 
-### 5. Recursos Kubernetes
-![Recursos K8s](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.53.39_d442fdfc.jpg)
-*Visualização dos recursos Kubernetes deployados*
+### 3. ArgoCD - Dashboard Principal
+<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.53.08_b3a26f80.jpg" alt="ArgoCD Dashboard" width="800"/>
 
-### 6. Load Balancer Controller
-![ALB Controller](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.54.28_2b6530ab.jpg)
-*AWS Load Balancer Controller funcionando*
+*Dashboard do ArgoCD mostrando aplicações kube-system sincronizadas e saudáveis*
 
-### 7. Pods em Execução
-![Pods Running](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.54.55_3f0b7ea3.jpg)
-*Pods do sistema rodando corretamente*
+### 4. ArgoCD - Detalhes da Aplicação
+<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.53.25_a6d859b2.jpg" alt="ArgoCD App Details" width="800"/>
 
-### 8. Aplicação Final
-![Aplicação Rodando](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.55.29_b01ab920.jpg)
-*Aplicação final acessível via Load Balancer*
+*Visualização detalhada da aplicação kube-system com todos os recursos deployados*
+
+### 5. ArgoCD - Recursos Kubernetes
+<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.53.39_d442fdfc.jpg" alt="K8s Resources" width="800"/>
+
+*Árvore de recursos Kubernetes gerenciados pelo ArgoCD incluindo ConfigMaps, Secrets e ServiceAccounts*
+
+### 6. Kubectl - Pods do Sistema
+<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.54.28_2b6530ab.jpg" alt="System Pods" width="800"/>
+
+*Comando kubectl get pods mostrando todos os pods do kube-system rodando corretamente*
+
+### 7. AWS Load Balancer Controller
+<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.54.55_3f0b7ea3.jpg" alt="ALB Controller" width="800"/>
+
+*Pods do AWS Load Balancer Controller em execução no namespace kube-system*
+
+### 8. Aplicação Web Funcionando
+<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.55.29_b01ab920.jpg" alt="Web App Running" width="800"/>
+
+*Aplicação web acessível através do Load Balancer, demonstrando o pipeline completo funcionando*
 
 ## 🚀 Como Executar
 
