@@ -29,11 +29,11 @@ Este projeto demonstra a implementação completa de um cluster EKS na AWS com A
 ![ArgoCD App Details](./images/argocd-app-details.jpg)
 *Visualização detalhada da aplicação kube-system com todos os recursos deployados*
 
-### 5. ArgoCD - Recursos Kubernetes
+### 6. AWS Load Balancer Controller
 ![K8s Resources](./images/k8s-resources.jpg)
 *Árvore de recursos Kubernetes gerenciados pelo ArgoCD incluindo ConfigMaps, Secrets e ServiceAccounts*
 
-### 6. AWS Load Balancer Controller
+### 6. ArgoCD - Recursos Kubernetes
 ![ALB Controller](./images/alb-controller.jpg)
 *Pods do AWS Load Balancer Controller em execução no namespace kube-system*
 
