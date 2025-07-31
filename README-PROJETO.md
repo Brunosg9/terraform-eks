@@ -14,35 +14,31 @@ Este projeto demonstra a implementação completa de um cluster EKS na AWS com A
 ## 📸 Demonstração Visual
 
 ### 1. Cluster EKS Console AWS
-![EKS Cluster](./images/01-eks-cluster.jpg)
+![EKS Cluster](./images/eks.cluster.jpg)
 *Console AWS mostrando o cluster EKS eks-cluster-prd ativo com configurações de rede e logging*
 
-### 2. ArgoCD - Login Interface
-![ArgoCD Login](./images/02-argocd-login.jpg)
-*Tela de login do ArgoCD acessível via port-forward, pronto para autenticação*
+### 2. VPC Flow - Arquitetura de Rede
+![VPC Flow](./images/vpc-flow.jpg)
+*Diagrama da arquitetura de rede VPC com subnets públicas e privadas para o cluster EKS*
 
 ### 3. ArgoCD - Dashboard Principal
-![ArgoCD Dashboard](./images/03-argocd-dashboard.jpg)
+![ArgoCD Dashboard](./images/argocd-dashboard.jpg)
 *Dashboard do ArgoCD mostrando aplicações kube-system sincronizadas e saudáveis*
 
 ### 4. ArgoCD - Detalhes da Aplicação
-![ArgoCD App Details](./images/04-argocd-app-details.jpg)
+![ArgoCD App Details](./images/argocd-app-details.jpg)
 *Visualização detalhada da aplicação kube-system com todos os recursos deployados*
 
 ### 5. ArgoCD - Recursos Kubernetes
-![K8s Resources](./images/05-k8s-resources.jpg)
+![K8s Resources](./images/k8s-resources.jpg)
 *Árvore de recursos Kubernetes gerenciados pelo ArgoCD incluindo ConfigMaps, Secrets e ServiceAccounts*
 
-### 6. Kubectl - Pods do Sistema
-![System Pods](./images/06-system-pods.jpg)
-*Comando kubectl get pods mostrando todos os pods do kube-system rodando corretamente*
-
-### 7. AWS Load Balancer Controller
-![ALB Controller](./images/07-alb-controller.jpg)
+### 6. AWS Load Balancer Controller
+![ALB Controller](./images/alb-controller.jpg)
 *Pods do AWS Load Balancer Controller em execução no namespace kube-system*
 
-### 8. Aplicação Web Funcionando
-![Web App Running](./images/08-web-app.jpg)
+### 7. Aplicação Web Funcionando
+![Web App Running](./images/web-app.jpg)
 *Aplicação web acessível através do Load Balancer, demonstrando o pipeline completo funcionando*
 
 ## 🚀 Como Executar
