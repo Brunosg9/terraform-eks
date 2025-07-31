@@ -14,35 +14,35 @@ Este projeto demonstra a implementação completa de um cluster EKS na AWS com A
 ## 📸 Demonstração Visual
 
 ### 1. Cluster EKS Criado
-![EKS Cluster](./Imagem%20do%20WhatsApp%20de%202025-07-30%20à(s)%2023.52.25_2f70b8ae.jpg)
+![EKS Cluster](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.52.25_2f70b8ae.jpg)
 *Cluster EKS rodando com nodes ativos*
 
 ### 2. ArgoCD Interface
-![ArgoCD Dashboard](./Imagem%20do%20WhatsApp%20de%202025-07-30%20à(s)%2023.52.52_df96245a.jpg)
+![ArgoCD Dashboard](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.52.52_df96245a.jpg)
 *Interface web do ArgoCD mostrando aplicações sincronizadas*
 
 ### 3. Aplicações Deployadas
-![Aplicações ArgoCD](./Imagem%20do%20WhatsApp%20de%202025-07-30%20à(s)%2023.53.08_b3a26f80.jpg)
+![Aplicações ArgoCD](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.53.08_b3a26f80.jpg)
 *Lista de aplicações gerenciadas pelo ArgoCD*
 
 ### 4. Status das Aplicações
-![Status Aplicações](./Imagem%20do%20WhatsApp%20de%202025-07-30%20à(s)%2023.53.25_a6d859b2.jpg)
+![Status Aplicações](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.53.25_a6d859b2.jpg)
 *Detalhes do status de sincronização das aplicações*
 
 ### 5. Recursos Kubernetes
-![Recursos K8s](./Imagem%20do%20WhatsApp%20de%202025-07-30%20à(s)%2023.53.39_d442fdfc.jpg)
+![Recursos K8s](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.53.39_d442fdfc.jpg)
 *Visualização dos recursos Kubernetes deployados*
 
 ### 6. Load Balancer Controller
-![ALB Controller](./Imagem%20do%20WhatsApp%20de%202025-07-30%20à(s)%2023.54.28_2b6530ab.jpg)
+![ALB Controller](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.54.28_2b6530ab.jpg)
 *AWS Load Balancer Controller funcionando*
 
 ### 7. Pods em Execução
-![Pods Running](./Imagem%20do%20WhatsApp%20de%202025-07-30%20à(s)%2023.54.55_3f0b7ea3.jpg)
+![Pods Running](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.54.55_3f0b7ea3.jpg)
 *Pods do sistema rodando corretamente*
 
 ### 8. Aplicação Final
-![Aplicação Rodando](./Imagem%20do%20WhatsApp%20de%202025-07-30%20à(s)%2023.55.29_b01ab920.jpg)
+![Aplicação Rodando](./Imagem%20do%20WhatsApp%20de%202025-07-30%20%C3%A0(s)%2023.55.29_b01ab920.jpg)
 *Aplicação final acessível via Load Balancer*
 
 ## 🚀 Como Executar
