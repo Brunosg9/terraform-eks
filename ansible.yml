@@ -3,23 +3,31 @@
   hosts: localhost
   vars:
     aws_region: us-east-1
-    aws_account_id: 861276123964
-    vpc_id: vpc-0e1c5244bb36eefea
-    eks_cluster_name: cluster-dev
+    aws_account_id: 005974045893
+    vpc_id: "{{ terraform_vpc_state.outputs.vpc_id.value }}"
+    private_subnet_ids: "{{ terraform_vpc_state.outputs.private_subnet_ids.value }}"
+    eks_cluster_name: eks-cluster-prd
     alb_controller_policy_name: AWSLoadBalancerControllerIAMPolicy
   
   tasks:
+    - name: Read Terraform VPC State
+      shell: aws s3 cp s3://github-s3-terraform-tfstate2/vpc-terraform/terraform.tfstate /tmp/terraform.tfstate && cat /tmp/terraform.tfstate
+      register: terraform_state_raw
 
-    - name: Install OIDC 
-      shell: |
-             echo $cluster_name
-             cluster_name="cluster-dev"
-             eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
-      register: associate_iam_oidc_provider
+    - name: Parse Terraform State
+      set_fact:
+        terraform_vpc_state: "{{ terraform_state_raw.stdout | from_json }}"
 
-    - name: Install OIDC (Output)
-      debug:
-        var: associate_iam_oidc_provider
+    # - name: Install OIDC 
+    #   shell: |
+    #          echo $cluster_name
+    #          cluster_name="cluster-dev"
+    #          eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
+    #   register: associate_iam_oidc_provider
+
+    # - name: Install OIDC (Output)
+    #   debug:
+    #     var: associate_iam_oidc_provider
 
     - name: Download IAM Policy
       shell : curl https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.7.2/docs/install/iam_policy.json
@@ -36,21 +44,53 @@
       debug:
         var: iam_policy_creation_output 
 
+    - name: Get OIDC Issuer URL
+      shell: aws eks describe-cluster --name {{eks_cluster_name}} --region {{aws_region}} --query "cluster.identity.oidc.issuer" --output text
+      register: oidc_issuer
+
+    - name: Create IAM Role Trust Policy
+      shell: |
+        cat > /tmp/trust-policy.json << EOF
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Federated": "arn:aws:iam::{{aws_account_id}}:oidc-provider/{{ oidc_issuer.stdout | regex_replace('https://') }}"
+              },
+              "Action": "sts:AssumeRoleWithWebIdentity",
+              "Condition": {
+                "StringEquals": {
+                  "{{ oidc_issuer.stdout | regex_replace('https://') }}:sub": "system:serviceaccount:kube-system:aws-load-balancer-controller",
+                  "{{ oidc_issuer.stdout | regex_replace('https://') }}:aud": "sts.amazonaws.com"
+                }
+              }
+            }
+          ]
+        }
+        EOF
+
     - name: Create IAM Role
       shell: |
-          eksctl create iamserviceaccount \
-            --cluster={{eks_cluster_name}}\
-            --namespace=kube-system \
-            --override-existing-serviceaccounts \
-            --name=aws-load-balancer-controller \
-            --role-name AmazonEKSLoadBalancerControllerRole \
-            --attach-policy-arn=arn:aws:iam::{{aws_account_id}}:policy/{{alb_controller_policy_name}} \
-            --approve
-      register: iam_policy_creation_output
+        aws iam create-role \
+          --role-name AmazonEKSLoadBalancerControllerRole \
+          --assume-role-policy-document file:///tmp/trust-policy.json
+        aws iam attach-role-policy \
+          --role-name AmazonEKSLoadBalancerControllerRole \
+          --policy-arn arn:aws:iam::{{aws_account_id}}:policy/{{alb_controller_policy_name}}
+      register: iam_role_creation_output
+
+    - name: Create Service Account
+      shell: |
+        kubectl create serviceaccount aws-load-balancer-controller -n kube-system --dry-run=client -o yaml | \
+        kubectl annotate --local -f - eks.amazonaws.com/role-arn=arn:aws:iam::{{aws_account_id}}:role/AmazonEKSLoadBalancerControllerRole -o yaml | \
+        kubectl apply -f -
+      register: service_account_creation_output
 
     - name: Create IAM Role (Output)
       debug:
-        var: iam_policy_creation_output
+        var: iam_role_creation_output
 
     - name: Add Helm Chart
       shell: |
@@ -58,13 +98,13 @@
           helm repo update eks
 
     - name: Install Load Balancer Controller
-      shell: 
+      shell: |
         helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
             -n kube-system \
             --set clusterName={{eks_cluster_name}} \
             --set serviceAccount.create=false \
             --set region={{aws_region}} \
-            --set vpcId={{vpc_id}}
+            --set vpcId={{vpc_id}} \
             --set serviceAccount.name=aws-load-balancer-controller 
       register: alb_controller_installation_output
 
@@ -81,3 +121,13 @@
     - name: Install Argo CD (Result)
       debug:
         msg: "{{ argocd_setup_output.stdout }}"
+    - name: Get ArgoCD Admin Password
+      shell: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+      register: argocd_password
+
+    - name: Display ArgoCD Admin Credentials
+      debug:
+        msg: |
+          ArgoCD Admin Credentials:
+          Username: admin
+          Password: {{ argocd_password.stdout }}
