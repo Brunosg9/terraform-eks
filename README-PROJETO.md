@@ -14,43 +14,35 @@ Este projeto demonstra a implementação completa de um cluster EKS na AWS com A
 ## 📸 Demonstração Visual
 
 ### 1. Cluster EKS Console AWS
-<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.52.25_2f70b8ae.jpg" alt="EKS Cluster" width="800"/>
-
+![EKS Cluster](./images/01-eks-cluster.jpg)
 *Console AWS mostrando o cluster EKS eks-cluster-prd ativo com configurações de rede e logging*
 
 ### 2. ArgoCD - Login Interface
-<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.52.52_df96245a.jpg" alt="ArgoCD Login" width="800"/>
-
+![ArgoCD Login](./images/02-argocd-login.jpg)
 *Tela de login do ArgoCD acessível via port-forward, pronto para autenticação*
 
 ### 3. ArgoCD - Dashboard Principal
-<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.53.08_b3a26f80.jpg" alt="ArgoCD Dashboard" width="800"/>
-
+![ArgoCD Dashboard](./images/03-argocd-dashboard.jpg)
 *Dashboard do ArgoCD mostrando aplicações kube-system sincronizadas e saudáveis*
 
 ### 4. ArgoCD - Detalhes da Aplicação
-<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.53.25_a6d859b2.jpg" alt="ArgoCD App Details" width="800"/>
-
+![ArgoCD App Details](./images/04-argocd-app-details.jpg)
 *Visualização detalhada da aplicação kube-system com todos os recursos deployados*
 
 ### 5. ArgoCD - Recursos Kubernetes
-<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.53.39_d442fdfc.jpg" alt="K8s Resources" width="800"/>
-
+![K8s Resources](./images/05-k8s-resources.jpg)
 *Árvore de recursos Kubernetes gerenciados pelo ArgoCD incluindo ConfigMaps, Secrets e ServiceAccounts*
 
 ### 6. Kubectl - Pods do Sistema
-<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.54.28_2b6530ab.jpg" alt="System Pods" width="800"/>
-
+![System Pods](./images/06-system-pods.jpg)
 *Comando kubectl get pods mostrando todos os pods do kube-system rodando corretamente*
 
 ### 7. AWS Load Balancer Controller
-<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.54.55_3f0b7ea3.jpg" alt="ALB Controller" width="800"/>
-
+![ALB Controller](./images/07-alb-controller.jpg)
 *Pods do AWS Load Balancer Controller em execução no namespace kube-system*
 
 ### 8. Aplicação Web Funcionando
-<img src="Imagem do WhatsApp de 2025-07-30 à(s) 23.55.29_b01ab920.jpg" alt="Web App Running" width="800"/>
-
+![Web App Running](./images/08-web-app.jpg)
 *Aplicação web acessível através do Load Balancer, demonstrando o pipeline completo funcionando*
 
 ## 🚀 Como Executar
