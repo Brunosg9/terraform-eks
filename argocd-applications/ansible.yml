@@ -4,20 +4,12 @@
   vars:
     aws_region: us-east-1
     aws_account_id: 005974045893
-    vpc_id: "{{ terraform_vpc_state.outputs.vpc_id.value }}"
-    private_subnet_ids: "{{ terraform_vpc_state.outputs.private_subnet_ids.value }}"
+    vpc_id: vpc-005ac4c2c0bf55635
+    private_subnet_ids: subnet-09f2b7d633aa16ef8, subnet-0cbd31c621699719b
     eks_cluster_name: eks-cluster-prd
     alb_controller_policy_name: AWSLoadBalancerControllerIAMPolicy
   
   tasks:
-    - name: Read Terraform VPC State
-      shell: aws s3 cp s3://github-s3-terraform-tfstate2/vpc-terraform/terraform.tfstate /tmp/terraform.tfstate && cat /tmp/terraform.tfstate
-      register: terraform_state_raw
-
-    - name: Parse Terraform State
-      set_fact:
-        terraform_vpc_state: "{{ terraform_state_raw.stdout | from_json }}"
-
     # - name: Install OIDC 
     #   shell: |
     #          echo $cluster_name
@@ -30,7 +22,7 @@
     #     var: associate_iam_oidc_provider
 
     - name: Download IAM Policy
-      shell : curl https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.7.2/docs/install/iam_policy.json
+      shell: curl https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.7.2/docs/install/iam_policy.json
       register: iam_policy_output
 
     - name: Create Policy
@@ -113,7 +105,7 @@
         var: alb_controller_installation_output
 
     - name: Install Argo CD
-      shell: | 
+      shell: |
         kubectl create namespace argocd
         kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
       register: argocd_setup_output
@@ -124,10 +116,3 @@
     - name: Get ArgoCD Admin Password
       shell: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
       register: argocd_password
-
-    - name: Display ArgoCD Admin Credentials
-      debug:
-        msg: |
-          ArgoCD Admin Credentials:
-          Username: admin
-          Password: {{ argocd_password.stdout }}

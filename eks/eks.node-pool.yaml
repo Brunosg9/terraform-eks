@@ -13,13 +13,13 @@ spec:
       requirements:
         - key: "node.kubernetes.io/instance-type"
           operator: In
-          values: ["t3.small", "t3.medium"]
+          values: ["t3.medium", "t3.large", "t3.xlarge"]
         - key: "karpenter.sh/capacity-type"
           operator: In
           values: ["on-demand"]
         - key: "topology.kubernetes.io/zone"
           operator: In
-          values: ["us-west-2a", "us-west-2b", "us-west-2c"]
+          values: ["us-east-1a", "us-east-1b", "us-east-1c"]
         - key: "eks.amazonaws.com/compute-type"
           operator: In
           values: ["ec2"]
@@ -28,4 +28,4 @@ spec:
     memory: 20Gi
   disruption:
     consolidationPolicy: WhenUnderutilized
-    expireAfter: "2024-12-31T23:59:59Z"
+    expireAfter: "2025-12-31T23:59:59Z"

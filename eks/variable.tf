@@ -1,12 +1,3 @@
-data "terraform_remote_state" "vpc" {
-  backend   = "s3"
-  config = {
-    bucket         = "github-s3-terraform-tfstate2"
-    key            = "vpc-terraform/terraform.tfstate"
-    region         = "us-east-1"
-  }
-}
-
 variable "environment" {
   description = "Environment name (e.g., dev, staging, prod)"
   type        = string
@@ -20,6 +11,7 @@ variable "eks_cluster" {
         access_config_athentication_mode = string
         private_subnet_ids               = list(string)
         enabled_cluster_log_types        = list(string)
+        auto_mode_enabled                = bool
         node_group = object({
             role_name                     = string
             instance_type                 = list(string)
@@ -33,8 +25,9 @@ variable "eks_cluster" {
         name                             = "eks-cluster"
         role_name                        = "eks-cluster-role"
         access_config_athentication_mode = "API_AND_CONFIG_MAP"
-        private_subnet_ids               = data.terraform_remote_state.vpc.outputs.private_subnet_ids
+        private_subnet_ids               = []
         enabled_cluster_log_types        = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+        auto_mode_enabled                = true
         node_group = {
             role_name                     = "eks-node-group-role"
             instance_type                 = ["t3.medium"]

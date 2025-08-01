@@ -10,6 +10,7 @@ output "eks_cluster_role" {
   value       = aws_iam_role.eks_cluster_role.arn
 }
 
-output "node_group_arn" {
-  value       = aws_eks_node_group.this.arn
-}
+# Node group output removed - using EKS Auto Mode
+# output "node_group_arn" {
+#   value       = aws_eks_node_group.this.arn
+# }
